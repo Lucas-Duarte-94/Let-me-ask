@@ -63,8 +63,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         })
       }
   
-        console.log(result);
-  
     }
 
     return (
