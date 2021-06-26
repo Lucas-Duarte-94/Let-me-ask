@@ -23,3 +23,9 @@ The following pictures are in portuguese(Brazil)!
 ### User Page
 
 ![user-page](https://user-images.githubusercontent.com/57713413/123527022-5d228c00-d6b2-11eb-8bd3-e07c7125cf4d.png)
+
+### Author
+
+Made by Lucas Duarte during NextLevelWeek from Rocketseat.  
+If you want to talk to me send me an e-mail to lucasduarte1603@gmail.com  
+or PM me on my LinkedIn https://www.linkedin.com/in/lucas-duarte-figueiredo-0b883836/
