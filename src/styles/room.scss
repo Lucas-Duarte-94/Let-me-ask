@@ -114,6 +114,11 @@
 
         .question-list {
             margin-top: 32px;
+
+            .likes {
+                display: flex;
+                align-items: center;
+            }
         }
     }
 }
