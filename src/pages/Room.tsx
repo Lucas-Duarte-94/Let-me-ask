@@ -5,16 +5,16 @@ import LogoImg from '../assets/images/logo.svg';
 import { Button } from '../components/Button';
 import { RoomCode } from '../components/RoomCode';
 import { Question } from '../components/Question';
+import { useAuth } from '../hooks/UseAuth';
+import { database } from '../services/firebase';
+import { UseRoom } from '../hooks/UseRoom';
 
 // Importing libraries.
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useState, FormEvent } from 'react';
 
 // Importing .scss files.
 import '../styles/room.scss';
-import { useAuth } from '../hooks/UseAuth';
-import { database } from '../services/firebase';
-import { UseRoom } from '../hooks/UseRoom';
 
 type RoomParams = {
     id: string;
@@ -23,11 +23,16 @@ type RoomParams = {
 
 
 export function Room() {
+    const history = useHistory();
     const {user, SignInWithGoogle} = useAuth();
     const params = useParams<RoomParams>();
     const roomId = params.id;
     const [ newQuestion, setNewQuestion ] = useState('');
     const { questions, title } = UseRoom(roomId);
+
+    function sendToHome() {
+        history.push("/");
+    }
 
     async function handleSignIn() {
         await SignInWithGoogle();
@@ -73,7 +78,9 @@ export function Room() {
         <div id="page-room">
             <header>
                 <div className="content">
-                    <img src={LogoImg} alt="Letmesask" />
+                    <button className="go-to-home" onClick={sendToHome}>
+                        <img src={LogoImg} alt="Letmesask" />
+                    </button>
                     <RoomCode code={roomId} />
                 </div>
             </header>

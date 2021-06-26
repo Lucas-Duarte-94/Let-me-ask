@@ -28,6 +28,10 @@ export function AdminRoom() {
     const roomId = params.id;
     const { questions, title } = UseRoom(roomId);
 
+    function sendToHome() {
+        history.push("/");
+    }
+
     async function handleEndRoom() {
         await database.ref(`rooms/${roomId}`).update({
             closedAt: new Date()
@@ -42,7 +46,13 @@ export function AdminRoom() {
         })
     }
 
-    async function handleHighlightQuestion(questionId:string) {
+    async function handleHighlightQuestion(questionId:string, highlighted: boolean) {
+        if (highlighted) {
+            await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+                isHighlighted: false
+            })
+            return;
+        }
         await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
             isHighlighted: true
         })
@@ -58,7 +68,9 @@ export function AdminRoom() {
         <div id="page-room">
             <header>
                 <div className="content">
-                    <img src={LogoImg} alt="Letmesask" />
+                    <button className="go-to-home" onClick={sendToHome}>
+                        <img src={LogoImg} alt="Letmesask" />
+                    </button>
                     <div>
                         <RoomCode code={roomId} />
                         <Button isOutLined onClick={handleEndRoom}>Encerrar sala</Button>
@@ -94,7 +106,7 @@ export function AdminRoom() {
                                         </button>
                                         <button
                                             type="button"
-                                            onClick={() => handleHighlightQuestion(question.id)}
+                                            onClick={() => handleHighlightQuestion(question.id, question.isHighlighted)}
                                         >
                                             <img src={answer} alt="Destacar a pergunta" />
                                         </button>
